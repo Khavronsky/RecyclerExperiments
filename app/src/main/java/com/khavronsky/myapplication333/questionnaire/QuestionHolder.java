@@ -31,6 +31,7 @@ class QuestionHolder extends RecyclerView.ViewHolder implements View.OnClickList
     }
 
 
+    // todo вместо multiChoosingType передавать int = BackgroundResource
     void setAnswer(String text, boolean selected, boolean multiChoosingType) {
 
         tv_item.setText(text);
@@ -39,6 +40,7 @@ class QuestionHolder extends RecyclerView.ViewHolder implements View.OnClickList
         answerItem.setOnClickListener(this);
     }
 
+    //todo getCheckBoxDrawable. Перенести этот метод в адаптер 
     @CheckBoxType
     private int setCheckBoxDrawable(boolean multiChoice) {
         return multiChoice ? CHECK_TYPE : RADIO_TYPE;
