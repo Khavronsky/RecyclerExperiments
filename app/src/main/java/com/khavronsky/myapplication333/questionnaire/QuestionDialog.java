@@ -126,6 +126,7 @@ public class QuestionDialog extends DialogFragment implements View.OnClickListen
         void questionAborted(QuestionsModel answerList);
     }
 
+    // лучше подет написать isAnswerSelected - т.к. это говорит что метод что-то проверяет 
     boolean answerSelected() {
         for (QuestionsModel.Answer answer :
                 mQuestion.getAnswers()) {
