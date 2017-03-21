@@ -49,8 +49,8 @@ class QuestionAdapter extends RecyclerView.Adapter<QuestionHolder> implements Qu
             }
             answers.get(pos).setSelected(true);
         } else {
-            isChecked = !isChecked;
-            answers.get(pos).setSelected(isChecked);
+            isChecked = !isChecked; // todo строку можно убрать 
+            answers.get(pos).setSelected(isChecked); // todo и написать setSelected(!isChecked)
         }
         mListener.selectItem();
     }
