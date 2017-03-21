@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,9 +50,11 @@ public class QuestionDialog extends DialogFragment implements View.OnClickListen
         ImageView imageView = (ImageView) view.findViewById(R.id.qstn_img);
         TextView title = (TextView) view.findViewById(R.id.qstn_title);
         TextView questionText = (TextView) view.findViewById(R.id.qstn_text);
+        final ImageView upperDivider = (ImageView) view.findViewById(R.id.qstn_upper_div);
+        final ImageView lowerDivider = (ImageView) view.findViewById(R.id.qstn_lower_div);
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.qstn_recycler);
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         final QuestionAdapter mAdapter = new QuestionAdapter(mQuestion);
 
         imageView.setBackgroundResource(mQuestion.getImgResource());
@@ -61,6 +64,23 @@ public class QuestionDialog extends DialogFragment implements View.OnClickListen
         btn_cancel.setOnClickListener(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mAdapter);
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+//                Log.d("KHS", "FirstCompletelyVisibleItemPosition  " + layoutManager.findFirstCompletelyVisibleItemPosition());
+                Log.d("KHS", "LastCompletelyVisibleItemPosition  " + layoutManager.findLastCompletelyVisibleItemPosition());
+                Log.d("KHS", "mQuestion.getAnswers().size()  " + mQuestion.getAnswers().size());
+                if (layoutManager.findLastCompletelyVisibleItemPosition() == mQuestion.getAnswers().size() - 1) {
+                    lowerDivider.setVisibility(View.INVISIBLE);
+                    upperDivider.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+
+//        layoutManager.findLastCompletelyVisibleItemPosition()
+
+
         mAdapter.setIQDListener(new QuestionAdapter.IAnswersListener() {
             @Override
             public void selectItem() {
@@ -84,7 +104,7 @@ public class QuestionDialog extends DialogFragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        switch (id){
+        switch (id) {
             case R.id.qstn_btn_ok:
                 if (answerSelected()) {
                     mDialogListener.answersSelected(mQuestion);
@@ -102,6 +122,7 @@ public class QuestionDialog extends DialogFragment implements View.OnClickListen
 
     public interface IQstnListener {
         void answersSelected(QuestionsModel question);
+
         void questionAborted(QuestionsModel answerList);
     }
 

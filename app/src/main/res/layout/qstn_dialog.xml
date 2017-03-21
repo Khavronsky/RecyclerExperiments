@@ -64,13 +64,20 @@
                     android:text="Тут будет какой-то вопрос от ONETRAK"
                     android:textColor="#262a31"
                     android:textSize="16sp" />
+                <ImageView
+                    android:id="@+id/qstn_upper_div"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#dddfe2"/>
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler"
+                    android:id="@+id/qstn_recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never">
 
                 </android.support.v7.widget.RecyclerView>
+
             </LinearLayout>
 
             <RelativeLayout
@@ -81,6 +88,14 @@
                 android:paddingEnd="12dp"
                 android:paddingStart="12dp"
                 android:paddingTop="8dp">
+                <ImageView
+                    android:id="@+id/qstn_lower_div"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom"
+                    android:background="#dddfe2"/>
 
                 <TextView
                     android:id="@+id/qstn_btn_ok"

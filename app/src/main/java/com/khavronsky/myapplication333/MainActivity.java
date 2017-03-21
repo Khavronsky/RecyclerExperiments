@@ -13,7 +13,7 @@ import com.khavronsky.myapplication333.questionnaire.QuestionsModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements QuestionDialog.IQstnListener {
 
     Button button1;
     Button button2;
@@ -28,25 +28,15 @@ public class MainActivity extends AppCompatActivity {
         button1 = (Button) findViewById(R.id.but1);
         button2 = (Button) findViewById(R.id.but_announcement);
         button3 = (Button) findViewById(R.id.but2);
-        dialog = new QuestionDialog();
         final Bundle bundle = new Bundle();
 
-        dialog.setArguments(bundle);
-        dialog.setListener(new QuestionDialog.IQstnListener() {
-            @Override
-            public void answersSelected(QuestionsModel question) {
-                Toast.makeText(MainActivity.this, "Save", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void questionAborted(QuestionsModel question) {
-                Toast.makeText(MainActivity.this, "Cancel", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog = new QuestionDialog();
+                dialog.setArguments(bundle);
+                dialog.setListener(MainActivity.this);
                 bundle.putSerializable("Question", createQuestion1());
                 dialog.show(getSupportFragmentManager(), null);
 
@@ -68,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog = new QuestionDialog();
+                dialog.setArguments(bundle);
+                dialog.setListener(MainActivity.this);
                 bundle.putSerializable("Question", createQuestion2());
                 dialog.show(getSupportFragmentManager(), null);
 
@@ -81,6 +74,38 @@ public class MainActivity extends AppCompatActivity {
         question.setTitle("Внимание! Вопрос:");
         question.setQuestion("Какой специалист занимается изучением неопознанных летающих объектов?");
         List<QuestionsModel.Answer> answers = new ArrayList<>();
+        answers.add(new QuestionsModel.Answer().setAnswer("Кинолог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Уфолог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Сексопатолог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Психиатр").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Сайентолог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Антрополог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Дерматовенеролог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Фитопалеонтолог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Гидрометеоролог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Агрометеоролог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Психофизиолог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Санскритолог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Политтехнолог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Феноменолог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Геоморфолог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Мартиролог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Кинолог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Уфолог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Сексопатолог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Психиатр").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Сайентолог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Антрополог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Дерматовенеролог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Фитопалеонтолог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Гидрометеоролог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Агрометеоролог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Психофизиолог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Санскритолог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Политтехнолог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Феноменолог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Геоморфолог").setSelected(false));
+        answers.add(new QuestionsModel.Answer().setAnswer("Мартиролог").setSelected(false));
         answers.add(new QuestionsModel.Answer().setAnswer("Кинолог").setSelected(false));
         answers.add(new QuestionsModel.Answer().setAnswer("Уфолог").setSelected(false));
         answers.add(new QuestionsModel.Answer().setAnswer("Сексопатолог").setSelected(false));
@@ -112,21 +137,30 @@ public class MainActivity extends AppCompatActivity {
         answers.add(new QuestionsModel.Answer().setAnswer("Уфолог").setSelected(false));
         answers.add(new QuestionsModel.Answer().setAnswer("Сексопатолог").setSelected(false));
         answers.add(new QuestionsModel.Answer().setAnswer("Психиатр").setSelected(false));
-        answers.add(new QuestionsModel.Answer().setAnswer("Сайентолог").setSelected(false));
-        answers.add(new QuestionsModel.Answer().setAnswer("Антрополог").setSelected(false));
-        answers.add(new QuestionsModel.Answer().setAnswer("Дерматовенеролог").setSelected(false));
-        answers.add(new QuestionsModel.Answer().setAnswer("Фитопалеонтолог").setSelected(false));
-        answers.add(new QuestionsModel.Answer().setAnswer("Гидрометеоролог").setSelected(false));
-        answers.add(new QuestionsModel.Answer().setAnswer("Агрометеоролог").setSelected(false));
-        answers.add(new QuestionsModel.Answer().setAnswer("Психофизиолог").setSelected(false));
-        answers.add(new QuestionsModel.Answer().setAnswer("Санскритолог").setSelected(false));
-        answers.add(new QuestionsModel.Answer().setAnswer("Политтехнолог").setSelected(false));
-        answers.add(new QuestionsModel.Answer().setAnswer("Феноменолог").setSelected(false));
-        answers.add(new QuestionsModel.Answer().setAnswer("Геоморфолог").setSelected(false));
-        answers.add(new QuestionsModel.Answer().setAnswer("Мартиролог").setSelected(false));
+//        answers.add(new QuestionsModel.Answer().setAnswer("Сайентолог").setSelected(false));
+//        answers.add(new QuestionsModel.Answer().setAnswer("Антрополог").setSelected(false));
+//        answers.add(new QuestionsModel.Answer().setAnswer("Дерматовенеролог").setSelected(false));
+//        answers.add(new QuestionsModel.Answer().setAnswer("Фитопалеонтолог").setSelected(false));
+//        answers.add(new QuestionsModel.Answer().setAnswer("Гидрометеоролог").setSelected(false));
+//        answers.add(new QuestionsModel.Answer().setAnswer("Агрометеоролог").setSelected(false));
+//        answers.add(new QuestionsModel.Answer().setAnswer("Психофизиолог").setSelected(false));
+//        answers.add(new QuestionsModel.Answer().setAnswer("Санскритолог").setSelected(false));
+//        answers.add(new QuestionsModel.Answer().setAnswer("Политтехнолог").setSelected(false));
+//        answers.add(new QuestionsModel.Answer().setAnswer("Феноменолог").setSelected(false));
+//        answers.add(new QuestionsModel.Answer().setAnswer("Геоморфолог").setSelected(false));
+//        answers.add(new QuestionsModel.Answer().setAnswer("Мартиролог").setSelected(false));
         question.setAnswers(answers);
         question.setMultiChoice(true);
         return question;
     }
 
+    @Override
+    public void answersSelected(QuestionsModel question) {
+        Toast.makeText(MainActivity.this, "Save", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void questionAborted(QuestionsModel answerList) {
+        Toast.makeText(MainActivity.this, "Cancel", Toast.LENGTH_SHORT).show();
+    }
 }
