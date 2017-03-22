@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +52,8 @@ public class QuestionDialog extends DialogFragment implements View.OnClickListen
         TextView questionText = (TextView) view.findViewById(R.id.qstn_text);
         final ImageView upperDivider = (ImageView) view.findViewById(R.id.qstn_upper_div);
         final ImageView lowerDivider = (ImageView) view.findViewById(R.id.qstn_lower_div);
+        final LinearLayout linLayout = (LinearLayout) view.findViewById(R.id.qstn_dlg_lin_layout);
+        final View relLayout = view.findViewById(R.id.qstn_dlg_rel_layout);
         lowerDivider.setVisibility(View.INVISIBLE);
         upperDivider.setVisibility(View.INVISIBLE);
 
@@ -68,6 +71,9 @@ public class QuestionDialog extends DialogFragment implements View.OnClickListen
         view.post(new Runnable() {
             @Override
             public void run() {
+                final float scale = getResources().getDisplayMetrics().density;
+                int pad16dp = (int) (16 * scale + 0.5f);
+                linLayout.setPadding(pad16dp, 0, pad16dp, relLayout.getHeight());
                 if (layoutManager.findLastCompletelyVisibleItemPosition() < mQuestion.getAnswers().size() - 1) {
                     lowerDivider.setVisibility(View.VISIBLE);
                     upperDivider.setVisibility(View.VISIBLE);

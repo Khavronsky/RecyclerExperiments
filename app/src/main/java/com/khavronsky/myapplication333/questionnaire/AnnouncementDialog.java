@@ -20,8 +20,6 @@ public class AnnouncementDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-//        Dialog dialog = new Dialog(getContext(),R.style.FullScreenActivity);
-//        Dialog dialog = super.onCreateDialog(savedInstanceState);
         Dialog dialog = new Dialog(getContext(), android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         return dialog;
@@ -47,14 +45,4 @@ public class AnnouncementDialog extends DialogFragment {
         });
         return view;
     }
-
-
-//    @Override
-//    public void onStart() {
-    // getDialog().getWindow().setWindowAnimations(R.style.MatchActivityDialog);
-//        super.onStart();
-//        getDialog().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-//        getDialog().getWindow().setBackgroundDrawable(null);
-//    }
-
 }

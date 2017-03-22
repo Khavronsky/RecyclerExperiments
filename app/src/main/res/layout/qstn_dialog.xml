@@ -15,7 +15,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="48dp"
-        app:cardCornerRadius="3dp"
+        app:cardCornerRadius="4dp"
         app:cardElevation="3dp">
 
         <FrameLayout
@@ -24,9 +24,9 @@
             android:background="#ffffff">
 
             <LinearLayout
+                android:id="@+id/qstn_dlg_lin_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="52dp"
                 android:orientation="vertical"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp">
@@ -81,20 +81,20 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/qstn_dlg_rel_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:paddingBottom="8dp"
                 android:paddingEnd="12dp"
-                android:paddingStart="12dp"
-                android:paddingTop="8dp">
+                android:paddingStart="12dp">
+
                 <ImageView
                     android:id="@+id/qstn_lower_div"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_gravity="bottom"
                     android:background="#dddfe2"/>
 
                 <TextView
@@ -102,6 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:layout_marginTop="8dp"
                     android:padding="8dp"
                     android:text="ОТПРАВИТЬ"
                     android:textColor="#a58144"
@@ -111,6 +112,7 @@
                     android:id="@+id/qstn_btn_cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_toStartOf="@id/qstn_btn_ok"
                     android:padding="8dp"
