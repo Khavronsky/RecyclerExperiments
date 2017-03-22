@@ -27,8 +27,6 @@ public class QuestionDialog extends DialogFragment implements View.OnClickListen
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-//        Dialog dialog = new Dialog(getContext(),R.style.FullScreenActivity);
-//        Dialog dialog = super.onCreateDialog(savedInstanceState);
         Dialog dialog = new Dialog(getContext(), android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
         if (dialog.getWindow() != null) {
             dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -79,18 +77,10 @@ public class QuestionDialog extends DialogFragment implements View.OnClickListen
         mAdapter.setIQDListener(new QuestionAdapter.IAnswersListener() {
             @Override
             public void selectItem() {
-                Toast.makeText(getContext(), "Checked", Toast.LENGTH_SHORT).show();
                 mAdapter.notifyDataSetChanged();
             }
         });
     }
-//    @Override
-//    public void onStart() {
-    // getDialog().getWindow().setWindowAnimations(R.style.MatchActivityDialog);
-//        super.onStart();
-//        getDialog().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-//        getDialog().getWindow().setBackgroundDrawable(null);
-//    }
 
     public void setListener(IQstnListener listener) {
         this.mDialogListener = listener;
