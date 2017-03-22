@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +30,9 @@ public class QuestionDialog extends DialogFragment implements View.OnClickListen
 //        Dialog dialog = new Dialog(getContext(),R.style.FullScreenActivity);
 //        Dialog dialog = super.onCreateDialog(savedInstanceState);
         Dialog dialog = new Dialog(getContext(), android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        }
         mQuestion = (QuestionsModel) getArguments().getSerializable("Question");
         return dialog;
     }
@@ -52,6 +53,8 @@ public class QuestionDialog extends DialogFragment implements View.OnClickListen
         TextView questionText = (TextView) view.findViewById(R.id.qstn_text);
         final ImageView upperDivider = (ImageView) view.findViewById(R.id.qstn_upper_div);
         final ImageView lowerDivider = (ImageView) view.findViewById(R.id.qstn_lower_div);
+        lowerDivider.setVisibility(View.INVISIBLE);
+        upperDivider.setVisibility(View.INVISIBLE);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.qstn_recycler);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -67,20 +70,12 @@ public class QuestionDialog extends DialogFragment implements View.OnClickListen
         view.post(new Runnable() {
             @Override
             public void run() {
-//                Log.d("KHS", "FirstCompletelyVisibleItemPosition  " + layoutManager.findFirstCompletelyVisibleItemPosition());
-                Log.d("KHS", "LastCompletelyVisibleItemPosition  " + layoutManager.findLastCompletelyVisibleItemPosition());
-                Log.d("KHS", "mQuestion.getAnswers().size()  " + mQuestion.getAnswers().size());
-                if (layoutManager.findLastCompletelyVisibleItemPosition() == mQuestion.getAnswers().size() - 1) {
-                    lowerDivider.setVisibility(View.INVISIBLE);
-                    upperDivider.setVisibility(View.INVISIBLE);
+                if (layoutManager.findLastCompletelyVisibleItemPosition() < mQuestion.getAnswers().size() - 1) {
+                    lowerDivider.setVisibility(View.VISIBLE);
+                    upperDivider.setVisibility(View.VISIBLE);
                 }
             }
         });
-
-
-//        layoutManager.findLastCompletelyVisibleItemPosition()
-
-
         mAdapter.setIQDListener(new QuestionAdapter.IAnswersListener() {
             @Override
             public void selectItem() {
@@ -106,7 +101,7 @@ public class QuestionDialog extends DialogFragment implements View.OnClickListen
         int id = v.getId();
         switch (id) {
             case R.id.qstn_btn_ok:
-                if (answerSelected()) {
+                if (isAnswerSelected()) {
                     mDialogListener.answersSelected(mQuestion);
                     dismiss();
                 } else {
@@ -126,8 +121,7 @@ public class QuestionDialog extends DialogFragment implements View.OnClickListen
         void questionAborted(QuestionsModel answerList);
     }
 
-    // лучше подет написать isAnswerSelected - т.к. это говорит что метод что-то проверяет 
-    boolean answerSelected() {
+    boolean isAnswerSelected() {
         for (QuestionsModel.Answer answer :
                 mQuestion.getAnswers()) {
             if (answer.isSelected()) return true;

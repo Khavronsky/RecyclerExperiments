@@ -1,6 +1,5 @@
 package com.khavronsky.myapplication333.questionnaire;
 
-import android.support.annotation.IntDef;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
@@ -15,14 +14,6 @@ class QuestionHolder extends RecyclerView.ViewHolder implements View.OnClickList
     private View answerItem;
     private int pos;
 
-    @IntDef({
-            RADIO_TYPE,
-            CHECK_TYPE,
-    })
-    @interface CheckBoxType {}
-    static final int RADIO_TYPE = R.drawable.radiobutton_selection;
-    static final int CHECK_TYPE = R.drawable.checkbox_selection;
-
     QuestionHolder(View view) {
         super(view);
         tv_item = (TextView) view.findViewById(R.id.qstn_answer);
@@ -30,22 +21,13 @@ class QuestionHolder extends RecyclerView.ViewHolder implements View.OnClickList
         answerItem = view.findViewById(R.id.qstn_answer_item);
     }
 
-
-    // todo вместо multiChoosingType передавать int = BackgroundResource
-    void setAnswer(String text, boolean selected, boolean multiChoosingType) {
+    void setAnswer(String text, boolean selected, int backgroundSource) {
 
         tv_item.setText(text);
         checkBox.setChecked(selected);
-        checkBox.setBackgroundResource(setCheckBoxDrawable(multiChoosingType));
+        checkBox.setBackgroundResource(backgroundSource);
         answerItem.setOnClickListener(this);
     }
-
-    //todo getCheckBoxDrawable. Перенести этот метод в адаптер 
-    @CheckBoxType
-    private int setCheckBoxDrawable(boolean multiChoice) {
-        return multiChoice ? CHECK_TYPE : RADIO_TYPE;
-    }
-
 
     void setListener(ICheckListener listener, int pos) {
         this.listener = listener;
